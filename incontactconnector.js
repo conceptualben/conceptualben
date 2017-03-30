@@ -187,7 +187,9 @@
                 'Authorization': 'bearer ' + tableau.password
             },
             success: function(resp) { 
-                var tableData = [];alert(JSON.stringify(resp));
+                var tableData = [];
+
+                console.log(JSON.stringify(resp));
 
                 if (table.tableInfo.id == "skillsActivity") {
                     var skillActivity = resp.skillActivity;
@@ -200,7 +202,7 @@
                 table.appendRows(tableData);
                 
             },
-            error: function(resp) { alert(JSON.stringify(resp)); }
+            error: function(resp) { console.log(JSON.stringify(resp)); }
             
         });
     };
