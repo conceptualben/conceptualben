@@ -113,7 +113,7 @@
             id: "skillsActivity",
             alias: "Skills Activity",
             columns: [
-                { id: "serverTime", dataType: tableau.dataTypeEnum.datetime },
+                { id: "serverTime", dataType: tableau.dataTypeEnum.string },
                 { id: "businessUnitId", dataType: tableau.dataTypeEnum.int },
                 { id: "agentsACW", dataType: tableau.dataTypeEnum.int },
                 { id: "agentsAvailable", dataType: tableau.dataTypeEnum.int },
@@ -124,7 +124,7 @@
                 { id: "campaignId", dataType: tableau.dataTypeEnum.int },
                 { id: "campaignName", dataType: tableau.dataTypeEnum.string },
                 { id: "contactsActive", dataType: tableau.dataTypeEnum.int },
-                { id: "earliestQueueTime", dataType: tableau.dataTypeEnum.datetime },
+                { id: "earliestQueueTime", dataType: tableau.dataTypeEnum.string },
                 { id: "emailFromAddress", dataType: tableau.dataTypeEnum.string },
                 { id: "isActive", dataType: tableau.dataTypeEnum.bool },
                 { id: "inSLA", dataType: tableau.dataTypeEnum.int },
