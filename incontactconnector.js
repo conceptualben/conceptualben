@@ -37,7 +37,7 @@
         var implicitUri = 'https://api.incontact.com/InContactAuthorizationServer/Authenticate';
         var client_id = 'SW_API@SweatWorks';
         var token_scope = 'RealTimeApi';
-        var redirect_uri = 'http://localhost:8888/InContact/index.html';
+        var redirect_uri = 'https://conceptualben.github.io/incontact';
         var state_object = 'myState';
         /*if (tableau.authPurpose === tableau.authPurposeEnum.ephemerel) {
             
