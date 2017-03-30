@@ -124,9 +124,15 @@
                 { id: "campaignId", dataType: tableau.dataTypeEnum.int },
                 { id: "campaignName", dataType: tableau.dataTypeEnum.string },
                 { id: "contactsActive", dataType: tableau.dataTypeEnum.int },
+                { id: "earliestQueueTime", dataType: tableau.dataTypeEnum.datetime },
+                { id: "emailFromAddress", dataType: tableau.dataTypeEnum.string },
+                { id: "isActive", dataType: tableau.dataTypeEnum.bool },
+                { id: "inSLA", dataType: tableau.dataTypeEnum.int },
+                { id: "isNaturalCalling", dataType: tableau.dataTypeEnum.bool },
                 { id: "isOutbound", dataType: tableau.dataTypeEnum.bool },
                 { id: "mediaTypeId", dataType: tableau.dataTypeEnum.int },
                 { id: "mediaTypeName", dataType: tableau.dataTypeEnum.string },
+                { id: "outSLA", dataType: tableau.dataTypeEnum.int },
                 { id: "queueCount", dataType: tableau.dataTypeEnum.int },
                 { id: "serviceLevel", dataType: tableau.dataTypeEnum.int },
                 { id: "serviceLevelGoal", dataType: tableau.dataTypeEnum.int },
@@ -189,7 +195,8 @@
             success: function(resp) { 
                 var tableData = [];
 
-                console.log(JSON.stringify(resp));
+                console.log('Success: ' + JSON.stringify(resp));
+                tableau.log('Success: ' + JSON.stringify(resp));
 
                 if (table.tableInfo.id == "skillsActivity") {
                     var skillActivity = resp.skillActivity;
@@ -202,7 +209,10 @@
                 table.appendRows(tableData);
                 
             },
-            error: function(resp) { console.log(JSON.stringify(resp)); }
+            error: function(resp) { 
+                console.log('Error: ' + JSON.stringify(resp));
+                tableau.log('Error: ' + JSON.stringify(resp));
+            }
             
         });
     };
