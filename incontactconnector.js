@@ -227,6 +227,8 @@
         
         console.log(tableau.password);
 
+        alert(table.tableInfo.id);
+
         $.ajax({
             url: endpoints[table.tableInfo.id].url,
             type: endpoints[table.tableInfo.id].method,
