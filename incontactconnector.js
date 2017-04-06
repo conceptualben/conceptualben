@@ -224,14 +224,16 @@
             endpoint = {};//InContactAPIBaseEndpoint + "skills/activity?" + dateString;
 
         endpoint = endpoints[table.tableInfo.id];
+
+        alert(JSON.stringify(endpoint));
         
         console.log(tableau.password);
 
-        
+
 
         $.ajax({
-            url: endpoints[table.tableInfo.id].url,
-            type: endpoints[table.tableInfo.id].method,
+            url: endpoint.url,
+            type: endpoint.method,
             dataType: 'json',
             headers: {
                 'Authorization': 'bearer ' + tableau.password
@@ -242,7 +244,7 @@
 
                 //console.log('Success: ' + JSON.stringify(response));
                 //tableau.log('Success: ' + JSON.stringify(response));
-                if(endpoints[table.tableInfo.id].dataType == 'csv') {
+                if(endpoint.dataType == 'csv') {
                     respJSON = parseCSV(response);
                 }
 
