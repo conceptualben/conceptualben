@@ -228,7 +228,7 @@
         console.log(tableau.password);
 
         $.ajax({
-            url: 'https://dl.dropboxusercontent.com/content_link/YTJFaM8Mmij3hoLF4JqLcErKpDsQAxq2Hd3ddIvjdpG51dLzplyUnTsFTW3KFJjn/file?dl=1',//InContactAPIBaseEndpoint + endpoint.url,
+            url: 'https://dl.dropboxusercontent.com/content_link/J29pZ236FJiv0YlN8oZ20UMfTUX8AYNlbZKzSBS3yiZMjDfP4Ow1OhrzI0mXvqXQ/file?dl=1',//InContactAPIBaseEndpoint + endpoint.url,
             type: endpoint.method,
             dataType: 'json',
             headers: {
