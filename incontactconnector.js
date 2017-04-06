@@ -228,8 +228,8 @@
         console.log(tableau.password);
 
         $.ajax({
-            url: endpoint.url,
-            type: endpoint.method,
+            url: endpoints[table.tableInfo.id].url,
+            type: endpoints[table.tableInfo.id].method,
             dataType: 'json',
             headers: {
                 'Authorization': 'bearer ' + tableau.password
@@ -240,7 +240,7 @@
 
                 //console.log('Success: ' + JSON.stringify(response));
                 //tableau.log('Success: ' + JSON.stringify(response));
-                if(endpoint.dataType == 'csv') {
+                if(endpoints[table.tableInfo.id].dataType == 'csv') {
                     respJSON = parseCSV(response);
                 }
 
