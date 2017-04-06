@@ -106,7 +106,7 @@
             ],
             dataType: 'json'
         },
-        CDRReport: {
+        cdrPlusDisposition: {
             url: '/report-jobs/datadownload/350047',
             method: 'GET',
             params: [
@@ -227,7 +227,7 @@
         
         console.log(tableau.password);
 
-        alert(table.tableInfo.id);
+        
 
         $.ajax({
             url: endpoints[table.tableInfo.id].url,
