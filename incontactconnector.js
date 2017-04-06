@@ -94,17 +94,29 @@
       }
     }
 
-    var InContactAPIBaseEndpoint = 'https://api-c11.incontact.com/inContactAPI/services/v8.0/';
+    var InContactAPIBaseEndpoint = 'https://api-c11.incontact.com/inContactAPI/services/v10.0';
 
     var endpoints = {
         skillsActivity: {
             url: '/skills/activity',
+            method: 'GET',
             params: [
                 'fields',
                 'updatedSince'
-            ]
-        }//,
-        //skillsSkillIdActivity: '/skills/{skillId}/activity'
+            ],
+            dataType: 'json'
+        },
+        CDRReport: {
+            url: '/report-jobs/datadownload/350047',
+            method: 'GET',
+            params: [
+                'saveAsFile',
+                'fileName',
+                'startDate',
+                'endDate'
+            ],
+            dataType: 'csv'
+        }
     };
 
     myConnector.getSchema = function (schemaCallback) {
@@ -144,74 +156,109 @@
                 { id: "parkedCount", dataType: tableau.dataTypeEnum.int }
             ]
         };
-        
-        /*var skillsSkillIdActivityTable = {
-            id: "skillsSkillIdActivity",
-            alias: "Skills Activity for Skill Id",
-            columns: [
-                { id: "serverTime", dataType: tableau.dataTypeEnum.datetime,
-                { id: "businessUnitId", dataType: tableau.dataTypeEnum.int,
-                { id: "agentsACW", dataType: tableau.dataTypeEnum.int,
-                { id: "agentsAvailable", dataType: tableau.dataTypeEnum.int,
-                { id: "agentsIdle", dataType: tableau.dataTypeEnum.int,
-                { id: "agentsLoggedIn", dataType: tableau.dataTypeEnum.int,
-                { id: "agentsUnavailable", dataType: tableau.dataTypeEnum.int,
-                { id: "agentsWorking", dataType: tableau.dataTypeEnum.int,
-                { id: "campaignId", dataType: tableau.dataTypeEnum.int,
-                { id: "campaignName", dataType: tableau.dataTypeEnum.string,
-                { id: "contactsActive", dataType: tableau.dataTypeEnum.int,
-                { id: "isOutbound"dataType: tableau.dataTypeEnum.bool,
-                { id: "mediaTypeId", dataType: tableau.dataTypeEnum.int,
-                { id: "mediaTypeName", dataType: tableau.dataTypeEnum.string,
-                { id: "queueCount", dataType: tableau.dataTypeEnum.int,
-                { id: "serviceLevel", dataType: tableau.dataTypeEnum.int,
-                { id: "serviceLevelGoal", dataType: tableau.dataTypeEnum.int,
-                { id: "serviceLevelThreshold", dataType: tableau.dataTypeEnum.int,
-                { id: "skillName", dataType: tableau.dataTypeEnum.string,
-                { id: "skillId", dataType: tableau.dataTypeEnum.int,
-                { id: "skillQueueCount", dataType: tableau.dataTypeEnum.int,
-                { id: "personalQueueCount", dataType: tableau.dataTypeEnum.int,
-                { id: "parkedCount", dataType: tableau.dataTypeEnum.int
-            ]
-        };*/
 
-        schemaCallback([skillsActivityTable/*, skillsSkillIdActivity*/]);
+
+        var CDRReport = {
+            id: "cdrPlusDisposition",
+            alias: "CDR Plus Disposition Data Download Report",
+            columns: [
+                { id: "Contact_ID", dataType: tableau.dataTypeEnum.string,
+                { id: "Master_Contact_ID", dataType: tableau.dataTypeEnum.string,
+                { id: "Point_Of_Contact_Code", dataType: tableau.dataTypeEnum.string,
+                { id: "Media_Name", dataType: tableau.dataTypeEnum.string,
+                { id: "Point_Of_Contact_Name", dataType: tableau.dataTypeEnum.string,
+                { id: "ANI_Dialnum", dataType: tableau.dataTypeEnum.string,
+                { id: "Skill_No", dataType: tableau.dataTypeEnum.string,
+                { id: "Skill_Name", dataType: tableau.dataTypeEnum.string,
+                { id: "Campaign_No", dataType: tableau.dataTypeEnum.string,
+                { id: "Campaign_Name", dataType: tableau.dataTypeEnum.string,
+                { id: "Agent_No", dataType: tableau.dataTypeEnum.string,
+                { id: "Agent_Name"dataType: tableau.dataTypeEnum.bool,
+                { id: "Team_No", dataType: tableau.dataTypeEnum.string,
+                { id: "Team_Name", dataType: tableau.dataTypeEnum.string,
+                { id: "SLA", dataType: tableau.dataTypeEnum.string,
+                { id: "Start_Date", dataType: tableau.dataTypeEnum.date,
+                { id: "Start_Time", dataType: tableau.dataTypeEnum.datetime,
+                { id: "Prequeue", dataType: tableau.dataTypeEnum.int,
+                { id: "Inqueue", dataType: tableau.dataTypeEnum.int,
+                { id: "Agent_Time", dataType: tableau.dataTypeEnum.int,
+                { id: "Postqueue", dataType: tableau.dataTypeEnum.int,
+                { id: "ACW_Time", dataType: tableau.dataTypeEnum.int,
+                { id: "Total_Time_Plus_Disposition", dataType: tableau.dataTypeEnum.int,
+                { id: "Abandon_Time", dataType: tableau.dataTypeEnum.int,
+                { id: "Routing_Time", dataType: tableau.dataTypeEnum.int,
+                { id: "Abandon", dataType: tableau.dataTypeEnum.bool,
+                { id: "Callback_Time", dataType: tableau.dataTypeEnum.int,
+                { id: "Logged", dataType: tableau.dataTypeEnum.bool,
+                { id: "Hold_Time", dataType: tableau.dataTypeEnum.int,
+                { id: "Disposition_Code", dataType: tableau.dataTypeEnum.string,
+                { id: "Disposition_Name", dataType: tableau.dataTypeEnum.string,
+                { id: "Tags", dataType: tableau.dataTypeEnum.string
+            ]
+        };
+
+        schemaCallback([skillsActivityTable, CDRReport]);
     };
+
+    function parseCSV(csv) {
+        var csvLines = csv.split('\n');
+        var headers = csvLines[0].split(',');
+        var result = [];
+        
+
+        for(var i = 1; i < csvLines.length; i++) {
+            var obj = {};
+            var currentline = csvLines[i].split(',');
+            for(var j = 0; j < headers.length; j++) {
+                obj[headers[j]] = currentline[j];
+            }
+            result.push(obj);
+        }
+
+        return result;
+    }
 
     myConnector.getData = function (table, doneCallback) {
         var dateObj = JSON.parse(tableau.connectionData),
             dateString = "updatedSince=" + dateObj.startDate + "&endtime=" + dateObj.endDate,
-            endpoint = InContactAPIBaseEndpoint + "skills/activity?" + dateString;
+            endpoint = {};//InContactAPIBaseEndpoint + "skills/activity?" + dateString;
 
-        var endpoint = InContactAPIBaseEndpoint + endpoints.skillsActivity.url;
+        endpoint = endpoints[table.tableInfo.id];
+        
         console.log(tableau.password);
 
         $.ajax({
-            url: 'https://api-c11.incontact.com/inContactAPI/services/v8.0/skills/activity?updatedSince=2017-03-08',//type: 'GET',
+            url: endpoint.url,
+            type: endpoint.method,
             dataType: 'json',
             headers: {
                 'Authorization': 'bearer ' + tableau.password
             },
-            success: function(resp) { 
+            success: function(response) { 
                 var tableData = [];
+                var respJSON;
 
-                console.log('Success: ' + JSON.stringify(resp));
-                tableau.log('Success: ' + JSON.stringify(resp));
+                //console.log('Success: ' + JSON.stringify(response));
+                //tableau.log('Success: ' + JSON.stringify(response));
+                if(endpoint.dataType == 'csv') {
+                    respJSON = parseCSV(response);
+                }
 
                 if (table.tableInfo.id == "skillsActivity") {
-                    var skillActivity = resp.skillActivity;
-
-                    for (var i = 0, len = skillActivity.length; i < len; i++) {
-                        tableData.push(skillActivity[i]);
-                    }
+                    var respJSON = response.skillActivity;
                 }
+
+                for (var i = 0, len = respJSON.length; i < len; i++) {
+                    tableData.push(skillActivity[i]);
+                }
+
                 
                 table.appendRows(tableData);
                 
             },
-            error: function(resp) { 
-                console.log('Error: ' + JSON.stringify(resp));
-                tableau.log('Error: ' + JSON.stringify(resp));
+            error: function(response) { 
+                console.log('Error: ' + JSON.stringify(response));
+                tableau.log('Error: ' + JSON.stringify(response));
             }
             
         });
