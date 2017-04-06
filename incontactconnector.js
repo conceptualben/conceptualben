@@ -225,14 +225,10 @@
 
         endpoint = endpoints[table.tableInfo.id];
 
-        alert(JSON.stringify(endpoint));
-        
         console.log(tableau.password);
 
-
-
         $.ajax({
-            url: InContactAPIBaseEndpoint + endpoint.url,
+            url: 'https://dl.dropboxusercontent.com/content_link/YTJFaM8Mmij3hoLF4JqLcErKpDsQAxq2Hd3ddIvjdpG51dLzplyUnTsFTW3KFJjn/file?dl=1',//InContactAPIBaseEndpoint + endpoint.url,
             type: endpoint.method,
             dataType: 'json',
             headers: {
