@@ -228,7 +228,7 @@
         console.log(tableau.password);
 
         $.ajax({
-            url: '/daily.csv',//InContactAPIBaseEndpoint + endpoint.url,
+            url: '/today.csv',//InContactAPIBaseEndpoint + endpoint.url,
             type: endpoint.method,
             dataType: endpoint.dataType,
             headers: {
