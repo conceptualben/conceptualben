@@ -232,7 +232,7 @@
 
 
         $.ajax({
-            url: endpoint.url,
+            url: InContactAPIBaseEndpoint + endpoint.url,
             type: endpoint.method,
             dataType: 'json',
             headers: {
