@@ -173,7 +173,7 @@
                 { id: "Campaign_No", dataType: tableau.dataTypeEnum.string },
                 { id: "Campaign_Name", dataType: tableau.dataTypeEnum.string },
                 { id: "Agent_No", dataType: tableau.dataTypeEnum.string },
-                { id: "Agent_Name"dataType: tableau.dataTypeEnum.bool },
+                { id: "Agent_Name", dataType: tableau.dataTypeEnum.bool },
                 { id: "Team_No", dataType: tableau.dataTypeEnum.string },
                 { id: "Team_Name", dataType: tableau.dataTypeEnum.string },
                 { id: "SLA", dataType: tableau.dataTypeEnum.string },
