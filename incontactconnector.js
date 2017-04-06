@@ -228,9 +228,9 @@
         console.log(tableau.password);
 
         $.ajax({
-            url: 'https://dl.dropboxusercontent.com/content_link/J29pZ236FJiv0YlN8oZ20UMfTUX8AYNlbZKzSBS3yiZMjDfP4Ow1OhrzI0mXvqXQ/file?dl=1',//InContactAPIBaseEndpoint + endpoint.url,
+            url: '/daily.csv',//InContactAPIBaseEndpoint + endpoint.url,
             type: endpoint.method,
-            dataType: 'json',
+            dataType: endpoint.dataType,
             headers: {
                 'Authorization': 'bearer ' + tableau.password
             },
