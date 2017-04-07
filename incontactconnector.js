@@ -230,10 +230,7 @@
         var xhr = new XMLHttpRequest();
         xhr.open('GET', '/today.csv', true);
         xhr.onload = function (e) {
-          console.log('onload');
-          console.log('readystate: '+xhr.readyState);
           if (xhr.readyState === 4) {
-            console.log('status: '+xhr.status);
             if (xhr.status === 200) {
               var tableData = [];
                 var respJSON;
@@ -241,7 +238,7 @@
                     respJSON = parseCSV(xhr.responseText);
                 }
                 for (var i = 0, len = respJSON.length; i < len; i++) {
-                    tableData.push(skillActivity[i]);
+                    tableData.push(respJSON[i]);
                 }
                 table.appendRows(tableData);
             } else {
