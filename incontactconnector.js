@@ -227,7 +227,28 @@
 
         console.log(tableau.password);
 
-        $.ajax({
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/today.csv');
+        xhr.onload = function (e) {
+          if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+              var tableData = [];
+                var respJSON;
+                if(endpoint.dataType == 'csv') {
+                    respJSON = parseCSV(xhr.responseText);
+                }
+                for (var i = 0, len = respJSON.length; i < len; i++) {
+                    tableData.push(skillActivity[i]);
+                }
+                table.appendRows(tableData);
+            } else {
+              console.error(xhr.statusText);
+            }
+          }
+        };
+        
+
+        /*$.ajax({
             url: '/today.csv',//InContactAPIBaseEndpoint + endpoint.url,
             type: endpoint.method,
             dataType: endpoint.dataType,
@@ -261,7 +282,7 @@
                 tableau.log('Error: ' + JSON.stringify(response));
             }
             
-        });
+        });*/
     };
 
     tableau.registerConnector(myConnector);
