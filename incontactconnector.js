@@ -230,7 +230,10 @@
         var xhr = new XMLHttpRequest();
         xhr.open('GET', '/today.csv', true);
         xhr.onload = function (e) {
+          console('onload');
+          console('readystate: '+xhr.readyState);
           if (xhr.readyState === 4) {
+            console('status: '+xhr.status);
             if (xhr.status === 200) {
               var tableData = [];
                 var respJSON;
