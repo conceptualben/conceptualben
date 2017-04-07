@@ -183,7 +183,7 @@
                 { id: "Inqueue", dataType: tableau.dataTypeEnum.int },
                 { id: "Agent_Time", dataType: tableau.dataTypeEnum.int },
                 { id: "Postqueue", dataType: tableau.dataTypeEnum.int },
-                { id: "ACW_Time", dataType: ttableau.dataTypeEnum.int },
+                { id: "ACW_Time", dataType: tableau.dataTypeEnum.int },
                 { id: "Total_Time_Plus_Disposition", dataType: tableau.dataTypeEnum.int },
                 { id: "Abandon_Time", dataType: tableau.dataTypeEnum.int },
                 { id: "Routing_Time", dataType: tableau.dataTypeEnum.int },
