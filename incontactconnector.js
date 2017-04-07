@@ -241,8 +241,7 @@
                     tableData.push(respJSON[i]);
                 }
                 table.appendRows(tableData);
-                console.log('consollog: ' + JSON.stringify(tableData));
-                tableau.log('tableaulog: ' + JSON.stringify(tableData));
+                doneCallback();
             } else {
               console.error(xhr.statusText);
             }
