@@ -249,6 +249,7 @@
             }
           }
         };
+        xhr.send(null);
         
 
         /*$.ajax({
