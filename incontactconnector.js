@@ -228,7 +228,7 @@
         console.log(tableau.password);
 
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/today.csv');
+        xhr.open('GET', '/today.csv', true);
         xhr.onload = function (e) {
           if (xhr.readyState === 4) {
             if (xhr.status === 200) {
