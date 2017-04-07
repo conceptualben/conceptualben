@@ -160,7 +160,7 @@
 
         var CDRReport = {
             id: "cdrPlusDisposition",
-            alias: "CDR Plus Disposition Data Download Report",
+            alias: "CDR Plus Disposition Report",
             columns: [
                 { id: "Contact_ID", dataType: tableau.dataTypeEnum.string },
                 { id: "Master_Contact_ID", dataType: tableau.dataTypeEnum.string },
@@ -241,6 +241,8 @@
                     tableData.push(respJSON[i]);
                 }
                 table.appendRows(tableData);
+                console.log('consollog: ' + JSON.stringify(tableData));
+                tableau.log('tableaulog: ' + JSON.stringify(tableData));
             } else {
               console.error(xhr.statusText);
             }
