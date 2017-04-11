@@ -236,14 +236,14 @@
             if (xhr.status === 200) {
               var tableData = [];
                 var respJSON;
-                var lastId = table.incrementValue;
+                var lastId = new Date(table.incrementValue);
                 console.log('lastId: '+lastId);
                 
                 if(endpoint.dataType == 'csv') {
                     respJSON = parseCSV(xhr.responseText);
                 }
                 
-                for (var i = 0, len = respJSON.length; i < len; i++) {
+                for (var i = 0, len = respJSON.length; i <= len; i++) {
                     var dateVector, timeVector;
                     if(respJSON[i]['Start_Date']) dateVector = respJSON[i]['Start_Date'].split('/');
                     if(respJSON[i]['start_time']) timeVector = respJSON[i]['start_time'].split(':');
