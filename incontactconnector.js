@@ -236,13 +236,15 @@
               var tableData = [];
                 var respJSON;
                 var lastId = parseInt(table.incrementValue || -1);
+                console.log('lastId: '+lastId);
                 
                 if(endpoint.dataType == 'csv') {
                     respJSON = parseCSV(xhr.responseText);
                 }
                 
                 for (var i = 0, len = respJSON.length; i < len; i++) {
-                    if(lastId && lastId >= respJSON[i][endpoint.incrementColumnId]) continue;
+                    console.log('respJSON[i][endpoint.incrementColumnId]: '+parseInt(respJSON[i][endpoint.incrementColumnId]));
+                    if(lastId >= parseInt(respJSON[i][endpoint.incrementColumnId])) continue;
                     tableData.push(respJSON[i]);
                 }
 
