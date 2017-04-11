@@ -244,10 +244,9 @@
                 }
                 
                 for (var i = 0, len = respJSON.length; i < len; i++) {
-                    console.log(JSON.stringify(respJSON[i]));
                     var dateVector, timeVector;
                     if(respJSON[i]['Start_Date']) dateVector = respJSON[i]['Start_Date'].split('/');
-                    timeVector = respJSON[i]['start_time'].split(':');
+                    if(respJSON[i]['start_time']) timeVector = respJSON[i]['start_time'].split(':');
                     respJSON[i]['Datetime'] = new Date(dateVector[2], dateVector[0], dateVector[1], timeVector[0], timeVector[1], timeVector[2], 0);
                     var incrementColumnValue = respJSON[i][endpoint.incrementColumnId];
                     console.log('incrementColumnValue: '+incrementColumnValue);
