@@ -180,7 +180,8 @@
                 { id: "Team_Name", dataType: tableau.dataTypeEnum.string },
                 { id: "SLA", dataType: tableau.dataTypeEnum.string },
                 { id: "Start_Date", dataType: tableau.dataTypeEnum.date },
-                { id: "Start_Time", dataType: tableau.dataTypeEnum.datetime },
+                { id: "start_time", dataType: tableau.dataTypeEnum.datetime },
+                { id: "Datetime", dataType: tableau.dataTypeEnum.datetime },
                 { id: "Prequeue", dataType: tableau.dataTypeEnum.int },
                 { id: "Inqueue", dataType: tableau.dataTypeEnum.int },
                 { id: "Agent_Time", dataType: tableau.dataTypeEnum.int },
@@ -244,7 +245,7 @@
                 
                 for (var i = 0, len = respJSON.length; i < len; i++) {
                     var currentRow = respJSON[i];
-                    var dateVector = currentRow['Start_Date'].split('/'), timeVector = currentRow['Start_Time'].split(':');
+                    var dateVector = currentRow['Start_Date'].split('/'), timeVector = currentRow['start_time'].split(':');
                     currentRow['Datetime'] = new Date(dateVector[2], dateVector[0], dateVector[1], timeVector[0], timeVector[1], timeVector[2], 0);
                     var incrementColumnValue = currentRow[endpoint.incrementColumnId];
                     console.log('incrementColumnValue: '+incrementColumnValue);
