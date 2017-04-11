@@ -104,7 +104,8 @@
                 'fields',
                 'updatedSince'
             ],
-            dataType: 'json'
+            dataType: 'json',
+            incrementColumnId: ''
         },
         cdrPlusDisposition: {
             url: '/report-jobs/datadownload/350047',
@@ -115,7 +116,8 @@
                 'startDate',
                 'endDate'
             ],
-            dataType: 'csv'
+            dataType: 'csv',
+            incrementColumnId: 'Start_Date'
         }
     };
 
@@ -194,7 +196,8 @@
                 { id: "Disposition_Code", dataType: tableau.dataTypeEnum.string },
                 { id: "Disposition_Name", dataType: tableau.dataTypeEnum.string },
                 { id: "Tags", dataType: tableau.dataTypeEnum.string }
-            ]
+            ],
+            incrementColumnId: 'Start_Date'
         };
 
         schemaCallback([skillsActivityTable, CDRReport]);
@@ -225,8 +228,6 @@
 
         endpoint = endpoints[table.tableInfo.id];
 
-        console.log(tableau.password);
-
         var xhr = new XMLHttpRequest();
         xhr.open('GET', '/today.csv', true);
         xhr.onload = function (e) {
@@ -234,12 +235,17 @@
             if (xhr.status === 200) {
               var tableData = [];
                 var respJSON;
+                var lastId = parseInt(table.incrementValue || -1);
+                
                 if(endpoint.dataType == 'csv') {
                     respJSON = parseCSV(xhr.responseText);
                 }
+                
                 for (var i = 0, len = respJSON.length; i < len; i++) {
+                    if(lastId && lastId >= respJSON[i][endpoint.incrementColumnId]) continue;
                     tableData.push(respJSON[i]);
                 }
+
                 table.appendRows(tableData);
                 doneCallback();
             } else {
