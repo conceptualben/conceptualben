@@ -235,7 +235,7 @@
             if (xhr.status === 200) {
               var tableData = [];
                 var respJSON;
-                var lastId = parseInt(table.incrementValue || -1);
+                var lastId = table.incrementValue || -1;
                 console.log('lastId: '+lastId);
                 
                 if(endpoint.dataType == 'csv') {
@@ -243,8 +243,9 @@
                 }
                 
                 for (var i = 0, len = respJSON.length; i < len; i++) {
-                    console.log('respJSON[i][endpoint.incrementColumnId]: '+parseInt(respJSON[i][endpoint.incrementColumnId]));
-                    if(lastId >= parseInt(respJSON[i][endpoint.incrementColumnId])) continue;
+                    console.log('incrementColumnValue: '+incrementColumnValue);
+                    var incrementColumnValue = respJSON[i][endpoint.incrementColumnId];
+                    if(lastId >= incrementColumnValue) continue;
                     tableData.push(respJSON[i]);
                 }
 
