@@ -244,13 +244,12 @@
                 }
                 
                 for (var i = 0, len = respJSON.length; i < len; i++) {
-                    var currentRow = respJSON[i];
-                    var dateVector = currentRow['Start_Date'].split('/'), timeVector = currentRow['start_time'].split(':');
-                    currentRow['Datetime'] = new Date(dateVector[2], dateVector[0], dateVector[1], timeVector[0], timeVector[1], timeVector[2], 0);
-                    var incrementColumnValue = currentRow[endpoint.incrementColumnId];
+                    var dateVector = respJSON[i]['Start_Date'].split('/'), timeVector = respJSON[i]['start_time'].split(':');
+                    respJSON[i]['Datetime'] = new Date(dateVector[2], dateVector[0], dateVector[1], timeVector[0], timeVector[1], timeVector[2], 0);
+                    var incrementColumnValue = respJSON[i][endpoint.incrementColumnId];
                     console.log('incrementColumnValue: '+incrementColumnValue);
                     if(!incrementColumnValue || lastId >= incrementColumnValue) continue;
-                    tableData.push(currentRow);
+                    tableData.push(respJSON[i]);
                 }
 
                 table.appendRows(tableData);
