@@ -117,7 +117,7 @@
                 'endDate'
             ],
             dataType: 'csv',
-            incrementColumnId: 'Start_Date'
+            incrementColumnId: 'Datetime'
         }
     };
 
@@ -197,7 +197,7 @@
                 { id: "Disposition_Name", dataType: tableau.dataTypeEnum.string },
                 { id: "Tags", dataType: tableau.dataTypeEnum.string }
             ],
-            incrementColumnId: 'Start_Date'
+            incrementColumnId: 'Datetime'
         };
 
         schemaCallback([skillsActivityTable, CDRReport]);
@@ -235,7 +235,7 @@
             if (xhr.status === 200) {
               var tableData = [];
                 var respJSON;
-                var lastId = new Date(table.incrementValue);
+                var lastId = table.incrementValue;
                 console.log('lastId: '+lastId);
                 
                 if(endpoint.dataType == 'csv') {
@@ -243,10 +243,13 @@
                 }
                 
                 for (var i = 0, len = respJSON.length; i < len; i++) {
+                    var currentRow = respJSON[i];
+                    var dateVector = currentRow['Start_Date'].split('/'), timeVector = currentRow['Start_Time'].split(':');
+                    currentRow['Datetime'] = new Date(dateVector[2], dateVector[0], dateVector[1], timeVector[0], timeVector[1], timeVector[2], 0);
+                    var incrementColumnValue = currentRow[endpoint.incrementColumnId];
                     console.log('incrementColumnValue: '+incrementColumnValue);
-                    var incrementColumnValue = new Date(respJSON[i][endpoint.incrementColumnId]);
                     if(!incrementColumnValue || lastId >= incrementColumnValue) continue;
-                    tableData.push(respJSON[i]);
+                    tableData.push(currentRow);
                 }
 
                 table.appendRows(tableData);
