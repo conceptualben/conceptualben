@@ -243,7 +243,7 @@
                     respJSON = parseCSV(xhr.responseText);
                 }
                 
-                for (var i = 0, len = respJSON.length; i < len; i++) {
+                for (var i = 0; i < respJSON.length - 1; i++) {
                     var dateVector, timeVector;
                     if(respJSON[i]['Start_Date']) dateVector = respJSON[i]['Start_Date'].split('/');
                     if(respJSON[i]['start_time']) timeVector = respJSON[i]['start_time'].split(':');
