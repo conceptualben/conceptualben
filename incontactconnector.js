@@ -264,10 +264,10 @@
         endDateParam = new Date('2016-09-02');
 
         var bodyObj = {
-            saveAsFile: false,
-            fileName: 'cdr.csv',
-            startDate: startDateParam.toISOString().split('.')[0]+"Z",
-            endDate: endDateParam.toISOString().split('.')[0]+"Z"
+            "saveAsFile": false,
+            "fileName": "cdr.csv",
+            "startDate": startDateParam.toISOString().split('.')[0]+"Z",
+            "endDate": endDateParam.toISOString().split('.')[0]+"Z"
         };
 
         console.log('bodyObj: ' + JSON.stringify(bodyObj));
