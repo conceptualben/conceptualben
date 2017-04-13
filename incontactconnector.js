@@ -18,7 +18,7 @@
         });
 
         $("#submitButton").click(function () {
-            tableau.connectionData = JSON.stringify(dateObj);
+            
             tableau.connectionName = "InContact";
             tableau.submit();
         });
