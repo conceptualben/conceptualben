@@ -290,6 +290,8 @@
                 respJSON = parseCSV(decodedCSV, false, CDRColumns);
 
                 for (var i = 0; i < respJSON.length - 1; i++) {
+                    if(i % 100 === 0) tableau.reportProgress('Getting row: ' + i + ' / ' + respJSON.length);
+                    
                     var startDate = respJSON[i]['Start_Date'], startTime = respJSON[i]['start_time'], dateVector, timeVector;
                     if(startDate) dateVector = startDate.split('/');
                     if(startTime) timeVector = startTime.split(':');
