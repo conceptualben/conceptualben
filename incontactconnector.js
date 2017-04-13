@@ -40,11 +40,6 @@
         window.location.href = url;
     }
 
-    function isValidDate(dateStr) {
-        var d = new Date(dateStr);
-        return !isNaN(d.getDate());
-    }
-
     function updateUIWithAuthState(hasAuth) {
         if (hasAuth) {
             $(".notsignedin").css('display', 'none');
@@ -88,16 +83,6 @@
     var InContactAPIBaseEndpoint = 'https://api-c11.incontact.com/inContactAPI/services/v10.0';
 
     var endpoints = {
-        skillsActivity: {
-            url: '/skills/activity',
-            method: 'GET',
-            params: [
-                'fields',
-                'updatedSince'
-            ],
-            dataType: 'json',
-            incrementColumnId: ''
-        },
         cdrPlusDisposition: {
             url: '/report-jobs/datadownload/350047',
             method: 'POST',
@@ -111,43 +96,6 @@
             incrementColumnId: 'Datetime'
         }
     };
-
-    var skillsActivityTable = {
-        id: "skillsActivity",
-        alias: "Skills Activity",
-        columns: [
-            { id: "serverTime", dataType: tableau.dataTypeEnum.string },
-            { id: "businessUnitId", dataType: tableau.dataTypeEnum.int },
-            { id: "agentsACW", dataType: tableau.dataTypeEnum.int },
-            { id: "agentsAvailable", dataType: tableau.dataTypeEnum.int },
-            { id: "agentsIdle", dataType: tableau.dataTypeEnum.int },
-            { id: "agentsLoggedIn", dataType: tableau.dataTypeEnum.int },
-            { id: "agentsUnavailable", dataType: tableau.dataTypeEnum.int },
-            { id: "agentsWorking", dataType: tableau.dataTypeEnum.int },
-            { id: "campaignId", dataType: tableau.dataTypeEnum.int },
-            { id: "campaignName", dataType: tableau.dataTypeEnum.string },
-            { id: "contactsActive", dataType: tableau.dataTypeEnum.int },
-            { id: "earliestQueueTime", dataType: tableau.dataTypeEnum.string },
-            { id: "emailFromAddress", dataType: tableau.dataTypeEnum.string },
-            { id: "isActive", dataType: tableau.dataTypeEnum.bool },
-            { id: "inSLA", dataType: tableau.dataTypeEnum.int },
-            { id: "isNaturalCalling", dataType: tableau.dataTypeEnum.bool },
-            { id: "isOutbound", dataType: tableau.dataTypeEnum.bool },
-            { id: "mediaTypeId", dataType: tableau.dataTypeEnum.int },
-            { id: "mediaTypeName", dataType: tableau.dataTypeEnum.string },
-            { id: "outSLA", dataType: tableau.dataTypeEnum.int },
-            { id: "queueCount", dataType: tableau.dataTypeEnum.int },
-            { id: "serviceLevel", dataType: tableau.dataTypeEnum.int },
-            { id: "serviceLevelGoal", dataType: tableau.dataTypeEnum.int },
-            { id: "serviceLevelThreshold", dataType: tableau.dataTypeEnum.int },
-            { id: "skillName", dataType: tableau.dataTypeEnum.string },
-            { id: "skillId", dataType: tableau.dataTypeEnum.int },
-            { id: "skillQueueCount", dataType: tableau.dataTypeEnum.int },
-            { id: "personalQueueCount", dataType: tableau.dataTypeEnum.int },
-            { id: "parkedCount", dataType: tableau.dataTypeEnum.int }
-        ]
-    };
-
 
     var CDRReport = {
         id: "cdrPlusDisposition",
@@ -226,7 +174,7 @@
     ];
 
     myConnector.getSchema = function (schemaCallback) {
-        schemaCallback([skillsActivityTable, CDRReport]);
+        schemaCallback([CDRReport]);
     };
 
     function parseCSV(csv, hasHeader, headersParam) {
@@ -259,11 +207,10 @@
 
         var startDateParam;
         if(table.incrementValue) startDateParam = new Date(table.incrementValue);
-        else startDateParam = new Date('2016-09-01');
+        else startDateParam = new Date('2015-01-01');
         var endDateParam = new Date(startDateParam);
-        endDateParam.setDate(endDateParam.getDate() + 30);
-        console.log('table.incrementValue: '+table.incrementValue);
-
+        endDateParam.setDate(endDateParam.getDate() + 60);
+        
         var bodyObj = {
             "saveAsFile": false,
             "fileName": "cdr.csv",
@@ -290,7 +237,7 @@
                 respJSON = parseCSV(decodedCSV, false, CDRColumns);
 
                 for (var i = 0; i < respJSON.length - 1; i++) {
-                    if(i % 100 === 0) tableau.reportProgress('Getting row: ' + i + ' of ' + respJSON.length);
+                    if(i % 100 == 0) tableau.reportProgress('Getting row: ' + i + ' of ' + respJSON.length);
                     
                     var startDate = respJSON[i]['Start_Date'], startTime = respJSON[i]['start_time'], dateVector, timeVector;
                     if(startDate) dateVector = startDate.split('/');
