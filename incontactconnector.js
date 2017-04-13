@@ -283,7 +283,9 @@
                 var lastId = new Date(table.incrementValue);
                 console.log('lastId: '+lastId);
                 
-                respJSON = parseCSV(atob(JSON.parse(response)['file']), false, CDRColumns);
+                var responseJSON = JSON.parse(response);
+                var encodedCSV = responseJSON['file'];
+                respJSON = parseCSV(atob(encodedCSV), false, CDRColumns);
                 
                 for (var i = 0; i < respJSON.length - 1; i++) {
                     var dateVector, timeVector;
