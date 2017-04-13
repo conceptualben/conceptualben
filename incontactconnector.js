@@ -116,7 +116,7 @@
                 startDate: null,
                 endDate: null
             },
-            dataType: 'csv',
+            dataType: 'json',
             incrementColumnId: 'Datetime'
         }
     };
@@ -280,7 +280,7 @@
                 'Authorization': 'bearer ' + tableau.password
             },
             body: JSON.stringify(bodyObj),
-            success: function(response) { 
+            success: function(response, status, jqxhr) { 
                 var tableData = [];
                 var respJSON;
                 var lastId = new Date(table.incrementValue);
@@ -306,6 +306,7 @@
             },
             error: function(response) { 
                 console.log('Error: ' + JSON.stringify(response));
+                console.log('Error: '+this.body);
                 
                 tableau.abortWithError(JSON.stringify(response));
             }
