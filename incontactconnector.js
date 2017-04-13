@@ -279,7 +279,7 @@
             headers: {
                 'Authorization': 'bearer ' + tableau.password
             },
-            body: JSON.stringify(bodyObj),
+            body: bodyObj,
             success: function(response, status, jqxhr) { 
                 var tableData = [];
                 var respJSON;
