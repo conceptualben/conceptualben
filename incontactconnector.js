@@ -18,18 +18,9 @@
         });
 
         $("#submitButton").click(function () {
-            var dateObj = {
-                startDate: $('#start-date-one').val().trim(),
-                endDate: $('#end-date-one').val().trim(),
-            };
-
-            if (isValidDate(dateObj.startDate) && isValidDate(dateObj.endDate)) {
-                tableau.connectionData = JSON.stringify(dateObj);
-                tableau.connectionName = "InContact";
-                tableau.submit();
-            } else {
-                $('#errorMsg').html("Enter valid dates. For example, 2016-05-08.");
-            }
+            tableau.connectionData = JSON.stringify(dateObj);
+            tableau.connectionName = "InContact";
+            tableau.submit();
         });
     });
 
