@@ -206,8 +206,13 @@
         var endpoint = endpoints[table.tableInfo.id];
 
         var startDateParam;
-        if(table.incrementValue) startDateParam = new Date(table.incrementValue);
-        else startDateParam = new Date('2015-01-01');
+        if(table.incrementValue) {
+            startDateParam = new Date(table.incrementValue);
+        }
+        else {
+            startDateParam = new Date();
+            startDateParam.setDate(startDateParam.getDate() - 365*2);
+        }
         var endDateParam = new Date(startDateParam);
         endDateParam.setDate(endDateParam.getDate() + 60);
         
