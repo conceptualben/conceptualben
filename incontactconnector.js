@@ -112,7 +112,7 @@
             method: 'POST',
             body: {
                 saveAsFile: false,
-                fileName: cdr.csv,
+                fileName: 'cdr.csv',
                 startDate: null,
                 endDate: null
             },
