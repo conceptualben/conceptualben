@@ -266,9 +266,12 @@
     myConnector.getData = function (table, doneCallback) {
         var endpoint = endpoints[table.tableInfo.id];
 
-        var startDateParam = table.incrementValue ? new Date(table.incrementValue) : new Date('2016-09-01');
+        var startDateParam;
+        if(table.incrementValue) startDateParam = new Date(table.incrementValue);
+        else startDateParam = new Date('2016-09-01');
         var endDateParam = new Date(startDateParam);
         endDateParam.setDate(endDateParam.getDate() + 30);
+        console.log('table.incrementValue: '+table.incrementValue);
 
         var bodyObj = {
             "saveAsFile": false,
@@ -295,10 +298,6 @@
                 var decodedCSV = atob(encodedCSV);
                 respJSON = parseCSV(decodedCSV, false, CDRColumns);
 
-                console.log('encodedCSV: '+encodedCSV);
-                console.log('decodedCSV: '+decodedCSV);
-                console.log('respJSON: '+respJSON);
-                
                 for (var i = 0; i < respJSON.length - 1; i++) {
                     var dateVector, timeVector;
                     if(respJSON[i]['Start_Date']) dateVector = respJSON[i]['Start_Date'].split('/');
@@ -306,7 +305,7 @@
                     respJSON[i]['Datetime'] = new Date(dateVector[2], dateVector[0], dateVector[1], timeVector[0], timeVector[1], timeVector[2], 0);
                     var incrementColumnValue = respJSON[i][endpoint.incrementColumnId];
                     
-                    if(!incrementColumnValue || lastId >= incrementColumnValue) continue;
+                    if(/*!incrementColumnValue || */lastId >= incrementColumnValue) continue;
                     tableData.push(respJSON[i]);
                 }
 
