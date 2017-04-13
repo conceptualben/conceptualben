@@ -240,10 +240,18 @@
 
     function parseCSV(csv, hasHeader, headersParam) {
         var csvLines = csv.split('\n');
-        var headers = hasHeader ? csvLines[0].split(',') : headersParam;
+        var headers, j;
+        if(hasHeader) {
+            j = 1;
+            headers = csvLines[0].split(',');
+        }
+        else {
+            j = 0
+            headers = headersParam;
+        }
         var result = [];
         
-        for(var i = parseInt(hasHeader); i < csvLines.length; i++) {
+        for(var i = j; i < csvLines.length; i++) {
             var obj = {};
             var currentline = csvLines[i].split(',');
             for(var j = 0; j < headers.length; j++) {
@@ -284,9 +292,11 @@
                 console.log('lastId: '+lastId);
                 
                 var encodedCSV = response['file'];
-                respJSON = parseCSV(atob(encodedCSV), false, CDRColumns);
+                var decodedCSV = atob(encodedCSV);
+                respJSON = parseCSV(decodedCSV, false, CDRColumns);
 
                 console.log('encodedCSV: '+encodedCSV);
+                console.log('decodedCSV: '+decodedCSV);
                 console.log('respJSON: '+respJSON);
                 
                 for (var i = 0; i < respJSON.length - 1; i++) {
