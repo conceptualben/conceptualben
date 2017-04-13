@@ -304,7 +304,7 @@
             },
             error: function(response) { 
                 console.log('Error: ' + JSON.stringify(response));
-                console.log('Error: '+ JSON.stringigy(this.body));
+                console.log('Error: '+ JSON.stringify(this.body));
                 
                 tableau.abortWithError(JSON.stringify(response));
             }
