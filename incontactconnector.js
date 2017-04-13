@@ -285,6 +285,9 @@
                 
                 var encodedCSV = response['file'];
                 respJSON = parseCSV(atob(encodedCSV), false, CDRColumns);
+
+                console.log('encodedCSV: '+encodedCSV);
+                console.log('respJSON: '+respJSON);
                 
                 for (var i = 0; i < respJSON.length - 1; i++) {
                     var dateVector, timeVector;
