@@ -279,7 +279,7 @@
             headers: {
                 'Authorization': 'bearer ' + tableau.password
             },
-            body: bodyObj,
+            body: JSON.stringify(bodyObj),
             success: function(response) { 
                 var tableData = [];
                 var respJSON;
@@ -287,7 +287,7 @@
                 console.log('lastId: '+lastId);
                 
                 if(endpoint.dataType == 'csv') {
-                    respJSON = parseCSV(atob(xhr.responseText), false, CDRColumns);
+                    respJSON = parseCSV(atob(JSON.parse(xhr.responseText).file), false, CDRColumns);
                 }
                 
                 for (var i = 0; i < respJSON.length - 1; i++) {
@@ -306,9 +306,8 @@
             },
             error: function(response) { 
                 console.log('Error: ' + JSON.stringify(response));
-                tableau.log('Error: ' + JSON.stringify(response));
-
-                doneCallback();
+                
+                abortWithError(JSON.stringify(response));
             }
             
         });
