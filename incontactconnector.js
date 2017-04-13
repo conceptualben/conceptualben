@@ -263,7 +263,7 @@
 
         var bodyObj = {
             saveAsFile: false,
-            fileName: cdr.csv,
+            fileName: 'cdr.csv',
             startDate: startDateParam.toISOString(),
             endDate: endDateParam.toISOString()
         };
