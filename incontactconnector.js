@@ -282,7 +282,7 @@
             success: function(response, status, jqxhr) { 
                 var tableData = [];
                 var respJSON;
-                var lastId = new Date(table.incrementValue);
+                var lastId = table.incrementValue;
                 console.log('lastId: '+lastId);
                 
                 var encodedCSV = response['file'];
@@ -290,9 +290,9 @@
                 respJSON = parseCSV(decodedCSV, false, CDRColumns);
 
                 for (var i = 0; i < respJSON.length - 1; i++) {
-                    var dateVector, timeVector;
-                    if(respJSON[i]['Start_Date']) dateVector = respJSON[i]['Start_Date'].split('/');
-                    if(respJSON[i]['start_time']) timeVector = respJSON[i]['start_time'].split(':');
+                    var startDate = respJSON[i]['Start_Date'], startTime = respJSON[i]['start_time'], dateVector, timeVector;
+                    if(startDate) dateVector = startDate.split('/');
+                    if(startTime) timeVector = startTime.split(':');
                     respJSON[i]['Datetime'] = dateVector[2] + '-' +  dateVector[0] + '-' + dateVector[1] + 'T' + startTime + 'Z';
                     var incrementColumnValue = respJSON[i][endpoint.incrementColumnId];
                     
