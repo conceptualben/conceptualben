@@ -266,8 +266,8 @@
         var bodyObj = {
             saveAsFile: false,
             fileName: 'cdr.csv',
-            startDate: startDateParam.toISOString(),
-            endDate: endDateParam.toISOString()
+            startDate: startDateParam.toISOString().split('.')[0]+"Z",
+            endDate: endDateParam.toISOString().split('.')[0]+"Z"
         };
 
         console.log('bodyObj: ' + JSON.stringify(bodyObj));
@@ -307,6 +307,8 @@
             error: function(response) { 
                 console.log('Error: ' + JSON.stringify(response));
                 tableau.log('Error: ' + JSON.stringify(response));
+
+                doneCallback();
             }
             
         });
