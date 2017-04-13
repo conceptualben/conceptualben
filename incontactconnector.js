@@ -260,8 +260,7 @@
 
         var startDateParam = table.incrementValue ? new Date(table.incrementValue) : new Date('2016-09-01');
         var endDateParam = new Date();
-        //endDateParam.setDate(startDateParam.getDate() + 1);
-        endDateParam = new Date('2016-09-02');
+        endDateParam.setDate(startDateParam.getDate() + 5);
 
         var bodyObj = {
             "saveAsFile": false,
@@ -284,7 +283,7 @@
                 var lastId = new Date(table.incrementValue);
                 console.log('lastId: '+lastId);
                 
-                respJSON = parseCSV(atob(JSON.parse(response).file), false, CDRColumns);
+                respJSON = parseCSV(atob(JSON.parse(response)['file']), false, CDRColumns);
                 
                 for (var i = 0; i < respJSON.length - 1; i++) {
                     var dateVector, timeVector;
