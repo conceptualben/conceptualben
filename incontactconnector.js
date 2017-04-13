@@ -277,7 +277,7 @@
             headers: {
                 'Authorization': 'bearer ' + tableau.password
             },
-            body: JSON.stringigy(bodyObj).replace(/\\/g, ""),
+            body: JSON.stringify(bodyObj).replace(/\\/g, ""),
             success: function(response, status, jqxhr) { 
                 var tableData = [];
                 var respJSON;
@@ -304,7 +304,7 @@
             },
             error: function(response) { 
                 console.log('Error: ' + JSON.stringify(response));
-                console.log('Error: '+ JSON.stringify(this.body));
+                console.log('Error: '+ this.body);
                 
                 tableau.abortWithError(JSON.stringify(response));
             }
