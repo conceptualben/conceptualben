@@ -270,8 +270,6 @@
             "endDate": endDateParam.toISOString().split('.')[0]+"Z"
         };
 
-        console.log('bodyObj: ' + JSON.stringify(bodyObj));
-
         $.ajax({
             url: InContactAPIBaseEndpoint + endpoint.url,
             type: endpoint.method,
@@ -306,7 +304,7 @@
             },
             error: function(response) { 
                 console.log('Error: ' + JSON.stringify(response));
-                console.log('Error: '+this.body);
+                console.log('Error: '+ JSON.stringigy(this.body));
                 
                 tableau.abortWithError(JSON.stringify(response));
             }
