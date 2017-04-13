@@ -259,8 +259,8 @@
         var endpoint = endpoints[table.tableInfo.id];
 
         var startDateParam = table.incrementValue ? new Date(table.incrementValue) : new Date('2016-09-01');
-        var endDateParam = new Date();
-        endDateParam.setDate(startDateParam.getDate() + 5);
+        var endDateParam = new Date('2016-09-02');
+        //endDateParam.setDate(startDateParam.getDate() + 5);
 
         var bodyObj = {
             "saveAsFile": false,
