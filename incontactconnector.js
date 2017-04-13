@@ -284,9 +284,7 @@
                 var lastId = new Date(table.incrementValue);
                 console.log('lastId: '+lastId);
                 
-                if(endpoint.dataType == 'csv') {
-                    respJSON = parseCSV(atob(JSON.parse(xhr.responseText).file), false, CDRColumns);
-                }
+                respJSON = parseCSV(atob(JSON.parse(xhr.responseText).file), false, CDRColumns);
                 
                 for (var i = 0; i < respJSON.length - 1; i++) {
                     var dateVector, timeVector;
