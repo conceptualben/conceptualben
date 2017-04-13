@@ -283,8 +283,7 @@
                 var lastId = new Date(table.incrementValue);
                 console.log('lastId: '+lastId);
                 
-                var responseJSON = JSON.parse(response);
-                var encodedCSV = responseJSON['file'];
+                var encodedCSV = response['file'];
                 respJSON = parseCSV(atob(encodedCSV), false, CDRColumns);
                 
                 for (var i = 0; i < respJSON.length - 1; i++) {
