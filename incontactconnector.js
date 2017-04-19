@@ -234,7 +234,7 @@
             success: function(response, status, jqxhr) { 
                 var tableData = [];
                 var respJSON;
-                var lastId = table.incrementValue;
+                var lastId = table.incrementValue.replace('.000Z', '');
                 console.log('lastId: '+lastId);
                 
                 var encodedCSV = response['file'];
@@ -248,9 +248,9 @@
                     if(startDate) dateVector = startDate.split('/');
                     if(startTime) timeVector = startTime.split(':');
                     respJSON[i]['Datetime'] = dateVector[2] + '-' +  dateVector[0] + '-' + dateVector[1] + 'T' + startTime + 'Z';
-                    var incrementColumnValue = respJSON[i][endpoint.incrementColumnId];
+                    var incrementColumnValue = respJSON[i]['Datetime'].replace('Z', '');
                     
-                    if(/*!incrementColumnValue || */lastId >= incrementColumnValue) continue;
+                    if(lastId >= incrementColumnValue) continue;
                     tableData.push(respJSON[i]);
                 }
 
