@@ -214,7 +214,7 @@
             startDateParam.setDate(startDateParam.getDate() - 365*2);
         }
         var endDateParam = new Date(startDateParam);
-        endDateParam.setDate(endDateParam.getDate() + 30);
+        endDateParam.setDate(endDateParam.getDate() + 29);
 
 
         
