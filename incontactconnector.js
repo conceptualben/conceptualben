@@ -215,6 +215,8 @@
         }
         var endDateParam = new Date(startDateParam);
         endDateParam.setDate(endDateParam.getDate() + 30);
+
+
         
         var bodyObj = {
             "saveAsFile": false,
@@ -222,6 +224,8 @@
             "startDate": startDateParam.toISOString().split('.')[0]+"Z",
             "endDate": endDateParam.toISOString().split('.')[0]+"Z"
         };
+
+        console.log('bodyObj: '+JSON.stringify(bodyObj));
 
         $.ajax({
             url: InContactAPIBaseEndpoint + endpoint.url,
