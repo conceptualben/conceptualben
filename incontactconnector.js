@@ -30,7 +30,7 @@
     function clearCredentials() {
         Cookies.remove('accessToken');
         
-        location.reload(true);
+        window.location = window.location.pathname;
     }
 
     function doAuthRedirect() {
