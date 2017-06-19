@@ -29,7 +29,7 @@
 
     function clearCredentials() {
         Cookies.remove('accessToken');
-        alert('hey');
+        
         location.reload(true);
     }
 
