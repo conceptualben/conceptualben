@@ -29,8 +29,8 @@
 
     function clearCredentials() {
         Cookies.remove('accessToken');
-
-        window.reload();
+        alert('hey');
+        location.reload(true);
     }
 
     function doAuthRedirect() {
