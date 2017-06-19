@@ -7,7 +7,6 @@
             var accessTokenParam = path.split('access_token=')[1].split('&expires_in')[0];
             Cookies.set('accessToken', decodeURIComponent(accessTokenParam));
         }
-        //Cookies.remove('accessToken');
 
         var accessToken = Cookies.get('accessToken');
         var hasAuth = accessToken && accessToken.length > 0;
@@ -22,7 +21,17 @@
             tableau.connectionName = "InContact";
             tableau.submit();
         });
+
+        $("#clearCredsButton").click(function() {
+            clearCredentials();
+        });
     });
+
+    function clearCredentials() {
+        Cookies.remove('accessToken');
+
+        window.reload();
+    }
 
     function doAuthRedirect() {
         var implicitUri = 'https://api.incontact.com/InContactAuthorizationServer/Authenticate';
